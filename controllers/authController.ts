@@ -8,12 +8,13 @@ export const authenticateUser = (req: Request, res: Response) => {
   if (!token) {
     return res.status(401).json({ message: "Token is required" });
   }
-
+  // @ts-ignore
   jwt.verify(token, process.env.JWT_SECRET, async (err, decoded) => {
     if (err) {
       return res.status(401).json({ message: "Invalid token" });
     }
 
+    // @ts-ignore
     const user = await User.findOne({ email: decoded.email });
 
     if (!user) {

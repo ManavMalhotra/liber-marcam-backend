@@ -7,7 +7,6 @@ import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
 import User from "../models/User";
 import dotenv from "dotenv";
-import { post } from "request";
 dotenv.config();
 
 // login route
