@@ -5,6 +5,7 @@ import mongoose from "mongoose";
 import { authRoutes } from "./routes/authRoutes";
 import bookmarkRoute from "./routes/bookmarkRoutes";
 import bodyParser from "body-parser";
+import cors from "cors";
 
 const app: Express = express();
 
@@ -15,6 +16,10 @@ mongoose.connect(process.env.MONGO_URI || "");
 mongoose.connection.on("connected", () => {
   console.log("[mongodb]: Connected to MongoDB");
 });
+
+app.use(cors())
+app.options('*', cors())
+
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
