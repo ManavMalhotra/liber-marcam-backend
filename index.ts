@@ -17,14 +17,14 @@ mongoose.connection.on("connected", () => {
   console.log("[mongodb]: Connected to MongoDB");
 });
 
-app.use(cors())
-app.options('*', cors())
+app.use(cors());
+app.options("*", cors());
 
-
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(bodyParser.json());
-app.use(express.text());
+// app.use(bodyParser.urlencoded({ extended: true }));
+// app.use(bodyParser.json());
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use(express.text());
 
 app.get("/", (req: Request, res: Response) => {
   res.send("Express + TypeScript Server");

@@ -45,14 +45,24 @@ export const addBookmark = (req, res) => {
 
   res.status(201).json(bookmark);
 };
-export const getBookmarks = (req, res) => {
-  Bookmark.find({})
-    .populate("user", { username: 1, name: 1 })
-    .then((bookmarks) => {
-      res.json(bookmarks);
+export const getBookmarks = async (req, res) => {
+  try {
+    const bookmarks = await Bookmark.find({}).populate("user", {
+      username: 1,
+      name: 1,
     });
+
+    if (!bookmarks) {
+      return res.status(404).json({ message: "No bookmarks found" });
+    }
+
+    res.status(200).json(bookmarks);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Server error" });
+  }
 };
-export const updateBookmark = (req, res) => {
+export const updateBookmark = async (req, res) => {
   const { url, title, category, tags } = req.body;
 
   if (!url || !title) {
